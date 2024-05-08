@@ -21,7 +21,7 @@ end
 
 module Mapping
 
-  
+
 module MappedException; end
 
 
@@ -107,9 +107,11 @@ private
   # much memory for each singleton Object.  just instance_eval instead of it.
   def __define_attr_accessor(qname)
     # untaint depends GenSupport.safemethodname
-    name = Mapping.safemethodname(qname.name).untaint
+    # name = Mapping.safemethodname(qname.name).untaint
+    name = Mapping.safemethodname(qname.name)
     # untaint depends on QName#dump
-    qnamedump = qname.dump.untaint
+    # qnamedump = qname.dump.untaint
+    qnamedump = qname.dump
     singleton = false
     unless self.respond_to?(name)
       singleton = true
@@ -227,7 +229,7 @@ module RegistrySupport
       schema_definition_from_class(obj_class)
     end
   end
-  
+
   def add_attributes2soap(obj, ele)
     if definition = Mapping.schema_definition_classdef(obj.class)
       add_definedattributes2soap(obj, ele, definition)

@@ -333,7 +333,8 @@ module Mapping
     else
       values.each do |attr_name, value|
         # untaint depends GenSupport.safevarname
-        name = Mapping.safevarname(attr_name).untaint
+        # name = Mapping.safevarname(attr_name).untaint
+        name = Mapping.safevarname(attr_name)
         setter = name + "="
         if obj.respond_to?(setter)
           obj.__send__(setter, value)
